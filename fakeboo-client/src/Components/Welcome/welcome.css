@@ -27,6 +27,8 @@
 }
 
 .login {
+  font-weight: bold;
+  color: red;
   width: 100%;
 }
 

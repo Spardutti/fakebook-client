@@ -22,22 +22,30 @@ const Welcome = (props) => {
           <Form className="form">
             <FormGroup>
               <Input
+                size="lg"
                 placeholder="Email or Username"
                 type="text"
                 name="username"
               ></Input>
             </FormGroup>
             <FormGroup>
-              <Input placeholder="password" name="password" type="passowrd" />
+              <Input
+                size="lg"
+                placeholder="password"
+                name="password"
+                type="passowrd"
+              />
             </FormGroup>
             <FormGroup>
-              <Button className="login" color="primary">
+              <Button size="lg" className="login" color="primary">
                 Log In
               </Button>
             </FormGroup>
             <hr />
             <div className="create">
-              <Button color="success">Create A New Account</Button>
+              <Button size="lg" color="success">
+                Create A New Account
+              </Button>
             </div>
           </Form>
         </Col>

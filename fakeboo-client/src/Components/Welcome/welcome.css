@@ -36,3 +36,32 @@
   text-align: center;
   margin: auto;
 }
+
+@media screen and (max-width: 800px) {
+  .col2 {
+    width: 300px;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .row {
+    padding-top: 0px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .col1 h1 {
+    font-size: 70px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .col1 h1 {
+    font-size: 50px;
+  }
+  .col2 {
+    margin: auto;
+    width: 250px;
+  }
+}

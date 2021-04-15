@@ -28,10 +28,10 @@ const NavBar = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav navbar className="">
             <NavItem className="pr-5">
-              <NavLink className="text-primary">Friends</NavLink>
+              <NavLink className="text-primary ml-5">Friends</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink className="text-primary">Request</NavLink>
+              <NavLink className="text-primary ml-5">Request</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

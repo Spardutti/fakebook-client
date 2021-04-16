@@ -29,7 +29,7 @@ function App() {
     <HashRouter>
       {token ? (
         <div>
-          <Navbar token={token} />
+          <Navbar token={token} setToken={setToken} />
           <Redirect to="/posts/" />
         </div>
       ) : (
@@ -40,6 +40,7 @@ function App() {
       )}
       <Switch>
         <Route path="/posts/" component={Home} />
+        <Route exact path="/" component={Welcome} />
       </Switch>
     </HashRouter>
   );

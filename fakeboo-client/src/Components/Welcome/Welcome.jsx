@@ -13,6 +13,7 @@ import "./welcome.css";
 const Welcome = (props) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [loginErrors, setLoginErros] = useState();
 
   //INPUTS
   const usernameValue = (e) => {
@@ -23,6 +24,7 @@ const Welcome = (props) => {
     setPassword(e.target.value);
   };
 
+  //CHECK CREDENTIALS AND LOG IN OR DISPLAY ERROR
   const loginUser = async (e) => {
     e.preventDefault();
     const response = await fetch("/users/login", {
@@ -37,8 +39,13 @@ const Welcome = (props) => {
     });
 
     const data = await response.json();
-    localStorage.setItem("token", data.token);
-    props.setToken(data.token);
+    if (response.status === 401) {
+      setLoginErros(data);
+    } else {
+      setLoginErros();
+      localStorage.setItem("token", data.token);
+      props.setToken(data.token);
+    }
   };
 
   return (
@@ -69,6 +76,11 @@ const Welcome = (props) => {
                   type="password"
                 />
               </FormGroup>
+              {loginErrors ? (
+                <FormGroup>
+                  <p>{loginErrors}</p>
+                </FormGroup>
+              ) : null}
               <FormGroup>
                 <Button
                   onClick={loginUser}
@@ -81,7 +93,14 @@ const Welcome = (props) => {
               </FormGroup>
               <hr />
               <div className="create">
-                <Button size="lg" color="success" onClick={props.toggle}>
+                <Button
+                  size="lg"
+                  color="success"
+                  onClick={() => {
+                    props.toggle();
+                    setLoginErros();
+                  }}
+                >
                   Create A New Account
                 </Button>
               </div>

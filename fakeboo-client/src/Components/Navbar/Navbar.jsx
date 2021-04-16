@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Collapse,
   Navbar,
@@ -13,11 +13,27 @@ import {
   DropdownItem,
   NavbarText,
 } from "reactstrap";
+import { useHistory } from "react-router-dom";
+
 import "./navbar.css";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  //TODO FIGURE HOW TO UDPATE PROFILE PIC
+
   const toggle = () => setIsOpen(!isOpen);
+
+  let history = useHistory();
+
+  const logout = async () => {
+    const response = await fetch("/users/logout", {
+      method: "POST",
+    });
+    history.push("/");
+    localStorage.clear();
+    props.setToken();
+  };
 
   return (
     <div>
@@ -28,6 +44,7 @@ const NavBar = (props) => {
             src={props.token.profilePic}
             alt="user profile pic"
           />
+          <p className="mb-0">{props.token.username}</p>
         </NavbarBrand>
 
         <NavbarToggler onClick={toggle} />
@@ -37,16 +54,12 @@ const NavBar = (props) => {
               <DropdownToggle nav caret>
                 Friends
               </DropdownToggle>
-              {props.token.friends.map((friend) => {
-                return (
-                  <DropdownMenu right>
-                    <DropdownItem>{friend._id}</DropdownItem>
-                  </DropdownMenu>
-                );
-              })}
             </UncontrolledDropdown>
             <NavItem>
               <NavLink className="">Request</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink onClick={logout}>Log out</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

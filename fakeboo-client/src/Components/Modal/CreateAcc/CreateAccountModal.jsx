@@ -33,7 +33,7 @@ const CreateAccountModal = (props) => {
   };
 
   const createAccount = async () => {
-    const response = await fetch("/users/", {
+    const response = await fetch("/users/new", {
       method: "POST",
       body: JSON.stringify({
         username: username,

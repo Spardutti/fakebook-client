@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import CreateAccountModal from "./Components/Modal/CreateAcc/CreateAccountModal";
 import Home from "./Components/Home/Home";
 import Navbar from "./Components/Navbar/Navbar";
+import jwt from "jsonwebtoken";
 
 function App() {
   const [token, setToken] = useState();
@@ -13,8 +14,9 @@ function App() {
   const toggle = () => setModal(!modal);
 
   const getToken = () => {
-    const localToken = localStorage.getItem("token");
+    let localToken = localStorage.getItem("token");
     if (localToken) {
+      localToken = jwt.decode(localToken);
       setToken(localToken);
     }
   };
@@ -27,8 +29,8 @@ function App() {
     <HashRouter>
       {token ? (
         <div>
+          <Navbar token={token} />
           <Redirect to="/posts/" />
-          <Navbar />
         </div>
       ) : (
         <div>

@@ -13,25 +13,40 @@ import {
   DropdownItem,
   NavbarText,
 } from "reactstrap";
+import "./navbar.css";
 
-const NavBar = () => {
+const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
-  const toggle = () => setIsOpen(true);
   return (
     <div>
-      <Navbar expand="md" className="bg-dark  justify-content-around" light>
-        <NavbarBrand className="col-sm-4 mr-auto text-primary ">
-          Dutti Profile
+      <Navbar expand="md" className="navbar-dark bg-dark">
+        <NavbarBrand className="">
+          <img
+            className="profile-pic rounded-circle"
+            src={props.token.profilePic}
+            alt="user profile pic"
+          />
         </NavbarBrand>
-        <NavbarToggler onClick={toggle} className="bg-light" />
+
+        <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav navbar className="">
-            <NavItem className="pr-5">
-              <NavLink className="text-primary ml-5">Friends</NavLink>
-            </NavItem>
+          <Nav navbar className="ml-auto">
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Friends
+              </DropdownToggle>
+              {props.token.friends.map((friend) => {
+                return (
+                  <DropdownMenu right>
+                    <DropdownItem>{friend._id}</DropdownItem>
+                  </DropdownMenu>
+                );
+              })}
+            </UncontrolledDropdown>
             <NavItem>
-              <NavLink className="text-primary ml-5">Request</NavLink>
+              <NavLink className="">Request</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

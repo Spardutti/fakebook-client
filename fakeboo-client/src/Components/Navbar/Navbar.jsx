@@ -19,6 +19,7 @@ import "./navbar.css";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState();
 
   //TODO FIGURE HOW TO UDPATE PROFILE PIC
 
@@ -26,8 +27,16 @@ const NavBar = (props) => {
 
   let history = useHistory();
 
+  useEffect(() => {
+    let userData = localStorage.getItem("user");
+    if (userData) {
+      userData = JSON.parse(userData);
+      setUser(userData);
+    }
+  }, []);
+
   const logout = async () => {
-    const response = await fetch("/users/logout", {
+    await fetch("/users/logout", {
       method: "POST",
     });
     history.push("/");
@@ -35,16 +44,16 @@ const NavBar = (props) => {
     props.setToken();
   };
 
-  return (
+  return user ? (
     <div>
       <Navbar expand="md" className="navbar-dark bg-dark">
         <NavbarBrand className="">
           <img
             className="profile-pic rounded-circle"
-            src={props.token.profilePic}
+            src={user.profilePic}
             alt="user profile pic"
           />
-          <p className="mb-0">{props.token.username}</p>
+          <NavbarText className="mb-0">{user.username}</NavbarText>
         </NavbarBrand>
 
         <NavbarToggler onClick={toggle} />
@@ -65,7 +74,7 @@ const NavBar = (props) => {
         </Collapse>
       </Navbar>
     </div>
-  );
+  ) : null;
 };
 
 export default NavBar;

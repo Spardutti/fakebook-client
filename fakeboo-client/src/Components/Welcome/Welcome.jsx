@@ -9,11 +9,15 @@ import {
 } from "reactstrap";
 import { useState } from "react";
 import "./welcome.css";
+import CreateAccountModal from "../Modal/CreateAcc/CreateAccountModal";
 
 const Welcome = (props) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [loginErrors, setLoginErros] = useState();
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
 
   //INPUTS
   const usernameValue = (e) => {
@@ -97,7 +101,7 @@ const Welcome = (props) => {
                   size="lg"
                   color="success"
                   onClick={() => {
-                    props.toggle();
+                    toggle();
                     setLoginErros();
                   }}
                 >
@@ -107,6 +111,7 @@ const Welcome = (props) => {
             </Form>
           </Col>
         </Row>
+        {modal ? <CreateAccountModal modal={modal} toggle={toggle} /> : null}
       </Container>
     </div>
   );

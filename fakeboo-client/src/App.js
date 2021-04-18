@@ -1,7 +1,6 @@
 import Welcome from "./Components/Welcome/Welcome";
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
-import CreateAccountModal from "./Components/Modal/CreateAcc/CreateAccountModal";
 import Home from "./Components/Home/Home";
 import Navbar from "./Components/Navbar/Navbar";
 import jwt from "jsonwebtoken";
@@ -9,38 +8,44 @@ import jwt from "jsonwebtoken";
 function App() {
   const [token, setToken] = useState();
 
-  const [modal, setModal] = useState(false);
-
-  const toggle = () => setModal(!modal);
-
   const getToken = () => {
-    let localToken = localStorage.getItem("token");
+    const localToken = localStorage.getItem("token");
     if (localToken) {
-      localToken = jwt.decode(localToken);
-      setToken(localToken);
+      const decodedToken = jwt.decode(localToken);
+      localStorage.setItem("user", JSON.stringify(decodedToken));
+      const expiresAt = new Date(decodedToken.exp * 1000);
+      if (expiresAt < new Date(Date.now())) {
+        localStorage.clear();
+      } else {
+        setToken(localToken);
+      }
     }
   };
 
   useEffect(() => {
     getToken();
-  }, []);
+  }, [token]);
 
   return (
     <HashRouter>
-      {token ? (
+      {!token ? (
         <div>
-          <Navbar token={token} setToken={setToken} />
-          <Redirect to="/posts/" />
+          <Redirect to="/welcome" />
+          <Welcome setToken={setToken} />
         </div>
       ) : (
         <div>
-          <Welcome toggle={toggle} setToken={setToken} />
-          <CreateAccountModal modal={modal} toggle={toggle} />
+          <Redirect to="/home" />{" "}
         </div>
       )}
       <Switch>
-        <Route path="/posts/" component={Home} />
-        <Route exact path="/" component={Welcome} />
+        <Route path="/welcome">
+          <Welcome setToken={setToken} />
+        </Route>
+        <Route path="/home">
+          <Navbar setToken={setToken} />
+          <Home />
+        </Route>
       </Switch>
     </HashRouter>
   );

@@ -4,6 +4,25 @@
   height: 100vh;
 }
 
+@media screen and (max-width: 800px) {
+  .nonFriend-pics {
+    height: auto;
+    width: auto;
+    max-width: 300px;
+    margin: auto;
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .nonFriend-pics {
+    height: auto;
+    width: auto;
+    max-width: 150px;
+    margin: auto;
+    margin-top: 10px;
+  }
+}
+
 /*********************** NAVBAR */
 .profile-pic {
   width: auto;
@@ -36,4 +55,7 @@
   .title {
     font-size: 60px;
   }
+}
+/************************************ REQUEST BUTTON */
+.friendRequestButton {
 }

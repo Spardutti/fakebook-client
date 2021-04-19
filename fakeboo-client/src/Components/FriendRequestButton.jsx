@@ -7,14 +7,12 @@ const FriendRequestButton = (props) => {
 
   //SEND FRIEND REQUEST
   const friendRequest = async (id) => {
-    const response = await fetch("/users/" + props.id + "/request", {
+    await fetch("/users/" + props.id + "/request", {
       method: "PUT",
       headers: {
         Authorization: "Bearer " + props.token,
       },
     });
-    const data = await response.json();
-    console.log(data);
   };
 
   const sendRequest = () => {

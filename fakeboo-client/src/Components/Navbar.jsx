@@ -20,6 +20,7 @@ import "./styles.css";
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState();
+  const [friendRequest, setFriendRequest] = useState();
 
   //TODO FIGURE HOW TO UDPATE PROFILE PIC
 
@@ -29,9 +30,17 @@ const NavBar = (props) => {
 
   useEffect(() => {
     let userData = localStorage.getItem("user");
+
+    const getRequestUsers = async () => {
+      const response = await fetch("/users/" + userData._id + "/requesting");
+      const data = await response.json();
+      setFriendRequest(data);
+    };
+
     if (userData) {
       userData = JSON.parse(userData);
       setUser(userData);
+      getRequestUsers();
     }
   }, []);
 
@@ -64,9 +73,27 @@ const NavBar = (props) => {
                 Friends
               </DropdownToggle>
             </UncontrolledDropdown>
-            <NavItem>
-              <NavLink className="">Request</NavLink>
-            </NavItem>
+            {friendRequest ? (
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Request
+                </DropdownToggle>
+                <DropdownMenu>
+                  {friendRequest.map((request) => {
+                    return (
+                      <DropdownItem>
+                        <p>{request.username}</p>
+                      </DropdownItem>
+                    );
+                  })}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            ) : (
+              <NavItem>
+                <NavLink className="">Request</NavLink>
+              </NavItem>
+            )}
+
             <NavItem>
               <NavLink onClick={logout}>Log out</NavLink>
             </NavItem>

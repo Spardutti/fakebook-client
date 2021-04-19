@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
-import "./navbar.css";
+import "./styles.css";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);

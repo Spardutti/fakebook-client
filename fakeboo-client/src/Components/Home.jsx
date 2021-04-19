@@ -10,7 +10,7 @@ import {
   CardTitle,
   CardSubtitle,
 } from "reactstrap";
-import "./home.css";
+import "./styles.css";
 import { useState, useEffect } from "react";
 
 const Home = (props) => {

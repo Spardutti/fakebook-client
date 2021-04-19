@@ -1,8 +1,8 @@
-import Welcome from "./Components/Welcome/Welcome";
+import Welcome from "./Components/Welcome";
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Home from "./Components/Home/Home";
-import Navbar from "./Components/Navbar/Navbar";
+import Home from "./Components/Home";
+import Navbar from "./Components/Navbar";
 import jwt from "jsonwebtoken";
 
 function App() {

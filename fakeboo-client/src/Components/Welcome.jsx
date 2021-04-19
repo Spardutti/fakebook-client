@@ -8,8 +8,8 @@ import {
   Input,
 } from "reactstrap";
 import { useState } from "react";
-import "./welcome.css";
-import CreateAccountModal from "../Modal/CreateAcc/CreateAccountModal";
+import "./styles.css";
+import CreateAccountModal from "./CreateAccountModal";
 
 const Welcome = (props) => {
   const [username, setUsername] = useState();

@@ -1,3 +1,16 @@
+/******************** HOME */
+.home-container {
+  background-color: rgb(228, 228, 228);
+  height: 100vh;
+}
+
+/*********************** NAVBAR */
+.profile-pic {
+  width: auto;
+  height: 40px;
+}
+
+/*********************** WELCOME */
 .welcome-container {
   background-color: rgb(228, 228, 228);
   height: 100vh;

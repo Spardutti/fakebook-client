@@ -40,7 +40,9 @@ const NavBar = (props) => {
     if (userData) {
       userData = JSON.parse(userData);
       setUser(userData);
-      getRequestUsers();
+      if (userData.request.length > 0) {
+        getRequestUsers();
+      }
     }
   }, []);
 

@@ -14,6 +14,7 @@ import {
   NavbarText,
 } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import DropdownRequests from "./DropdownRequest";
 
 import "./styles.css";
 
@@ -30,6 +31,7 @@ const NavBar = (props) => {
 
   useEffect(() => {
     let userData = localStorage.getItem("user");
+    console.log(userData);
 
     const getRequestUsers = async () => {
       const response = await fetch("/users/" + userData._id + "/requesting");
@@ -40,6 +42,7 @@ const NavBar = (props) => {
     if (userData) {
       userData = JSON.parse(userData);
       setUser(userData);
+      console.log(userData);
       if (userData.request.length > 0) {
         getRequestUsers();
       }
@@ -78,21 +81,25 @@ const NavBar = (props) => {
             {friendRequest ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Request
+                  Requests
                 </DropdownToggle>
-                <DropdownMenu>
-                  {friendRequest.map((request) => {
+                <DropdownMenu className="bg-dark">
+                  {friendRequest.map((request, index) => {
+                    console.log(friendRequest);
                     return (
-                      <DropdownItem>
-                        <p>{request.username}</p>
-                      </DropdownItem>
+                      <DropdownRequests
+                        index={index}
+                        user={request}
+                        id={user._id}
+                        key={request._id}
+                      />
                     );
                   })}
                 </DropdownMenu>
               </UncontrolledDropdown>
             ) : (
               <NavItem>
-                <NavLink className="">Request</NavLink>
+                <NavLink className="">No Requests</NavLink>
               </NavItem>
             )}
 

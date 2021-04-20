@@ -52,8 +52,8 @@ const Home = (props) => {
           <Col className=" col-md-6" sm="12">
             {nonFriends ? (
               <div>
-                <p className="text-monospace text-center pt-2 text-info">
-                  <u>Users you might be interested in</u>
+                <p className="text-monospace text-center pt-2 text-dark">
+                  <u>Users you might be interested in:</u>
                 </p>
 
                 <Row className="">

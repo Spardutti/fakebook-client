@@ -7,16 +7,19 @@ import jwt from "jsonwebtoken";
 
 function App() {
   const [token, setToken] = useState();
+  const [currentUser, setCurrentUser] = useState();
 
-  const getToken = () => {
+  const getToken = async () => {
     const localToken = localStorage.getItem("token");
     if (localToken) {
       const decodedToken = jwt.decode(localToken);
-      localStorage.setItem("user", JSON.stringify(decodedToken));
       const expiresAt = new Date(decodedToken.exp * 1000);
       if (expiresAt < new Date(Date.now())) {
         localStorage.clear();
       } else {
+        const response = await fetch("/users/" + decodedToken._id + "/current");
+        const data = await response.json();
+        setCurrentUser(data);
         setToken(localToken);
       }
     }
@@ -43,8 +46,8 @@ function App() {
           <Welcome setToken={setToken} />
         </Route>
         <Route path="/home">
-          <Navbar setToken={setToken} />
-          <Home />
+          <Navbar setToken={setToken} currentUser={currentUser} />
+          <Home currentUser={currentUser} token={token} />
         </Route>
       </Switch>
     </HashRouter>

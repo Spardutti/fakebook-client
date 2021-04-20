@@ -12,7 +12,7 @@ const DropdownRequests = (props) => {
       }),
     });
     if (response.status === 200) {
-      console.log(response);
+      window.location.reload();
     }
   };
 

@@ -17,13 +17,11 @@ import FriendRequestButton from "./FriendRequestButton";
 const Home = (props) => {
   const [posts, setPosts] = useState();
   const [nonFriends, setNonFriends] = useState();
-  const [userData, setUserData] = useState();
-  const [token, setToken] = useState();
 
   //GET NON FRIEND USERS
   const getNonFriends = async () => {
-    if (userData) {
-      const response = await fetch("/users/" + userData._id + "/all", {
+    if (props.currentUser) {
+      const response = await fetch("/users/" + props.currentUser._id + "/all", {
         method: "GET",
       });
       const data = await response.json();
@@ -32,17 +30,8 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    let userData = localStorage.getItem("user");
-    if (userData) {
-      userData = JSON.parse(userData);
-      setUserData(userData);
-      setToken(localStorage.getItem("token"));
-    }
-  }, []);
-
-  useEffect(() => {
     getNonFriends();
-  }, [userData]);
+  }, [props.currentUser]);
 
   return (
     <div className="home-container">
@@ -79,15 +68,15 @@ const Home = (props) => {
                           </CardTitle>
                           {user.request
                             .map((e) => e.user)
-                            .indexOf(userData._id) > -1 ? (
+                            .indexOf(props.currentUser._id) > -1 ? (
                             <FriendRequestButton
-                              token={token}
+                              token={props.token}
                               friendRequestSent={true}
                               id={user._id}
                             />
                           ) : (
                             <FriendRequestButton
-                              token={token}
+                              token={props.token}
                               friendRequestSent={false}
                               id={user._id}
                             />

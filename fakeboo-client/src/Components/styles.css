@@ -1,7 +1,7 @@
 /******************** HOME */
 .home-container {
   background-color: rgb(228, 228, 228);
-  height: 100vh;
+  height: 90vh;
 }
 
 @media screen and (max-width: 800px) {

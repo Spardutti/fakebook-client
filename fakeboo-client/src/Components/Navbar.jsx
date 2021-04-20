@@ -30,24 +30,20 @@ const NavBar = (props) => {
   let history = useHistory();
 
   useEffect(() => {
-    let userData = localStorage.getItem("user");
-    console.log(userData);
-
     const getRequestUsers = async () => {
-      const response = await fetch("/users/" + userData._id + "/requesting");
+      const response = await fetch(
+        "/users/" + props.currentUser._id + "/requesting"
+      );
       const data = await response.json();
       setFriendRequest(data);
     };
 
-    if (userData) {
-      userData = JSON.parse(userData);
-      setUser(userData);
-      console.log(userData);
-      if (userData.request.length > 0) {
+    if (props.currentUser) {
+      if (props.currentUser.request.length > 0) {
         getRequestUsers();
       }
     }
-  }, []);
+  }, [props.currentUser]);
 
   const logout = async () => {
     await fetch("/users/logout", {
@@ -58,16 +54,16 @@ const NavBar = (props) => {
     props.setToken();
   };
 
-  return user ? (
+  return props.currentUser ? (
     <div>
       <Navbar expand="md" className="navbar-dark bg-dark">
         <NavbarBrand className="">
           <img
             className="profile-pic rounded-circle"
-            src={user.profilePic}
+            src={props.currentUser.profilePic}
             alt="user profile pic"
           />
-          <NavbarText className="mb-0">{user.username}</NavbarText>
+          <NavbarText className="mb-0">{props.currentUser.username}</NavbarText>
         </NavbarBrand>
 
         <NavbarToggler onClick={toggle} />
@@ -85,12 +81,11 @@ const NavBar = (props) => {
                 </DropdownToggle>
                 <DropdownMenu className="bg-dark">
                   {friendRequest.map((request, index) => {
-                    console.log(friendRequest);
                     return (
                       <DropdownRequests
                         index={index}
                         user={request}
-                        id={user._id}
+                        id={props.currentUser._id}
                         key={request._id}
                       />
                     );

@@ -5,12 +5,8 @@ import {
   Button,
   Card,
   CardImg,
-  CardText,
-  CardBody,
   CardTitle,
-  CardSubtitle,
 } from "reactstrap";
-import "./styles.css";
 import { useState, useEffect } from "react";
 import FriendRequestButton from "./FriendRequestButton";
 
@@ -52,7 +48,7 @@ const Home = (props) => {
                         md="3"
                         sm="6"
                         xs="6"
-                        className="pt-1 p-1"
+                        className="mx-auto p-1"
                         key={user._id}
                       >
                         <Card className="rounded-5">

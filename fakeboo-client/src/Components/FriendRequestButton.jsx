@@ -14,7 +14,7 @@ const FriendRequestButton = (props) => {
       },
     });
   };
-
+  //TO UDPATE THE REQUEST BUTTON WITHOUT RELOADING PAGE
   const sendRequest = () => {
     setRequestSent(!requestSent);
   };

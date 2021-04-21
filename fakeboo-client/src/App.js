@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import Home from "./Components/Home";
 import Navbar from "./Components/Navbar";
 import jwt from "jsonwebtoken";
+import "./Components/styles.css";
 
 function App() {
   const [token, setToken] = useState();
   const [currentUser, setCurrentUser] = useState();
 
+  //GET TOKEN AND CHECK IF ITS VALID
   const getToken = async () => {
     const localToken = localStorage.getItem("token");
     if (localToken) {

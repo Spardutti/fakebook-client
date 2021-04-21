@@ -10,26 +10,28 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
   NavbarText,
 } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import DropdownRequests from "./DropdownRequest";
-
-import "./styles.css";
+import FriendsList from "./FriendsList";
+import ChangeProPicModal from "./ChangeProPicModal";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState();
   const [friendRequest, setFriendRequest] = useState();
+  const [friendList, setFriendList] = useState();
+  const [modal, setModal] = useState(false);
 
-  //TODO FIGURE HOW TO UDPATE PROFILE PIC
+  //TODO FIGURE HOW TO REPLACE PROFILES PIC INSTEAD OF REUPLOADING
 
-  const toggle = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleModal = () => setModal(!modal);
 
   let history = useHistory();
 
   useEffect(() => {
+    //GET FRIEND REQUEST
     const getRequestUsers = async () => {
       const response = await fetch(
         "/users/" + props.currentUser._id + "/requesting"
@@ -38,13 +40,26 @@ const NavBar = (props) => {
       setFriendRequest(data);
     };
 
+    //GETFRIEND LIST
+    const getFriendList = async () => {
+      const response = await fetch(
+        "/users/" + props.currentUser._id + "/friends"
+      );
+      const data = await response.json();
+      setFriendList(data);
+    };
+
     if (props.currentUser) {
       if (props.currentUser.request.length > 0) {
         getRequestUsers();
       }
+      if (props.currentUser.friends.length > 0) {
+        getFriendList();
+      }
     }
   }, [props.currentUser]);
 
+  //LOGOUT
   const logout = async () => {
     await fetch("/users/logout", {
       method: "POST",
@@ -62,18 +77,39 @@ const NavBar = (props) => {
             className="profile-pic rounded-circle"
             src={props.currentUser.profilePic}
             alt="user profile pic"
+            style={{ cursor: "pointer" }}
+            onClick={toggleModal}
           />
           <NavbarText className="mb-0">{props.currentUser.username}</NavbarText>
         </NavbarBrand>
 
-        <NavbarToggler onClick={toggle} />
+        <NavbarToggler onClick={toggleDropdown} />
         <Collapse isOpen={isOpen} navbar>
           <Nav navbar className="ml-auto">
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Friends
-              </DropdownToggle>
-            </UncontrolledDropdown>
+            {friendList ? (
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret className="test">
+                  Friends
+                </DropdownToggle>
+                <DropdownMenu className="bg-dark animate__animated animate__fadeIn ">
+                  {friendList
+                    ? friendList.map((friend, index) => {
+                        return (
+                          <FriendsList
+                            friend={friend}
+                            key={friend._id}
+                            id={props.currentUser._id}
+                            index={index}
+                          />
+                        );
+                      })
+                    : null}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            ) : (
+              <NavItem>No Friends</NavItem>
+            )}
+
             {friendRequest ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -99,11 +135,24 @@ const NavBar = (props) => {
             )}
 
             <NavItem>
-              <NavLink onClick={logout}>Log out</NavLink>
+              <NavLink
+                style={{ cursor: "pointer" }}
+                className="text-danger font-weight-bold"
+                onClick={logout}
+              >
+                Log out
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
+      {modal ? (
+        <ChangeProPicModal
+          modal={modal}
+          toggleModal={toggleModal}
+          id={props.currentUser._id}
+        />
+      ) : null}
     </div>
   ) : null;
 };

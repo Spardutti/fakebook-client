@@ -10,7 +10,6 @@ import {
 } from "reactstrap";
 
 const CreateAccountModal = (props) => {
-  //if account creating success
   const [success, setSuccess] = useState();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
@@ -32,6 +31,8 @@ const CreateAccountModal = (props) => {
     setConfirm(e.target.value);
   };
 
+  //CHECK FOR ERRORS AND DISPLAY THEM OR CREATE ACCOUNT IF
+  //ALL IS VALID
   const createAccount = async () => {
     const response = await fetch("/users/new", {
       method: "POST",

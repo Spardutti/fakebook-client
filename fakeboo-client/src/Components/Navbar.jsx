@@ -23,8 +23,6 @@ const NavBar = (props) => {
   const [friendList, setFriendList] = useState();
   const [modal, setModal] = useState(false);
 
-  //TODO FIGURE HOW TO REPLACE PROFILES PIC INSTEAD OF REUPLOADING
-
   const toggleDropdown = () => setIsOpen(!isOpen);
   const toggleModal = () => setModal(!modal);
 
@@ -151,6 +149,7 @@ const NavBar = (props) => {
           modal={modal}
           toggleModal={toggleModal}
           id={props.currentUser._id}
+          username={props.currentUser.username}
         />
       ) : null}
     </div>

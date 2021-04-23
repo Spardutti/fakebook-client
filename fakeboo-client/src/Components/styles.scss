@@ -1,11 +1,14 @@
 .test {
   -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
   transition: all 1s ease;
 }
 
 /******************** HOME */
 .home-container {
-  background-color: #e4e4e4;
+  background-color: rgb(228, 228, 228);
   height: 90vh;
 }
 
@@ -18,7 +21,6 @@
     margin-top: 10px;
   }
 }
-
 @media screen and (max-width: 500px) {
   .nonFriend-pics {
     height: auto;
@@ -37,7 +39,7 @@
 
 /*********************** WELCOME */
 .welcome-container {
-  background-color: #e4e4e4;
+  background-color: rgb(228, 228, 228);
   height: 100vh;
 }
 
@@ -57,12 +59,9 @@
     padding-top: 100px;
   }
 }
-
 @media screen and (max-width: 350px) {
   .title {
     font-size: 60px;
   }
 }
-
 /************************************ REQUEST BUTTON */
-/*# sourceMappingURL=styles.css.map */

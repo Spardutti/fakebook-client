@@ -150,6 +150,7 @@ const NavBar = (props) => {
           toggleModal={toggleModal}
           id={props.currentUser._id}
           username={props.currentUser.username}
+          user={props.currentUser}
         />
       ) : null}
     </div>

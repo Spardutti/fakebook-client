@@ -9,10 +9,14 @@ import {
 } from "reactstrap";
 import { useState, useEffect } from "react";
 import FriendRequestButton from "./FriendRequestButton";
+import CreatePostModal from "./CreatePost";
 
 const Home = (props) => {
   const [posts, setPosts] = useState();
   const [nonFriends, setNonFriends] = useState();
+  const [postModal, setPostModal] = useState(false);
+
+  const toggle = () => setPostModal(!postModal);
 
   //GET NON FRIEND USERS
   const getNonFriends = async () => {
@@ -27,7 +31,7 @@ const Home = (props) => {
 
   useEffect(() => {
     getNonFriends();
-  }, [props.currentUser]);
+  }, []);
 
   return (
     <div className="home-container">
@@ -84,7 +88,12 @@ const Home = (props) => {
                 </Row>
               </div>
             ) : null}
-            <Button className="btn-block rounded-5 mt-2 bg-primary">
+            <Button
+              className="btn-block rounded-5 mt-2 bg-primary"
+              onClick={() => {
+                toggle();
+              }}
+            >
               Create Something
             </Button>
             {posts ? (
@@ -99,6 +108,13 @@ const Home = (props) => {
           <Col className="col-md-3 bg-light d-none d-md-block">3 </Col>
         </Row>
       </Container>
+      {postModal ? (
+        <CreatePostModal
+          postModal={postModal}
+          token={props.token}
+          toggle={toggle}
+        />
+      ) : null}
     </div>
   );
 };

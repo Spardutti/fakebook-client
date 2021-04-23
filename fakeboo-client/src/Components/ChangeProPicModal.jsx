@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Modal,
@@ -7,6 +7,7 @@ import {
   ModalBody,
   FormGroup,
   Form,
+  Label,
 } from "reactstrap";
 
 const ChangeProPicModal = (props) => {
@@ -32,13 +33,21 @@ const ChangeProPicModal = (props) => {
   };
   return (
     <div>
-      <Modal isOpen={props.modal} toggle={props.toggleModal}>
-        <ModalHeader toggle={props.toggleModal}>
-          Change Profile Image
-        </ModalHeader>
+      <Modal
+        isOpen={props.modal}
+        className="bg-light"
+        toggle={props.toggleModal}
+      >
+        <ModalHeader toggle={props.toggleModal}>{props.username}</ModalHeader>
         <ModalBody>
+          <img
+            src={props.user.profilePic}
+            alt=""
+            className="mx bg-dark rounded-circle"
+          />
           <Form encType="multipart/form-data">
-            <FormGroup>
+            <FormGroup className="text-center">
+              <Label for="profilePic">Change Avatar</Label>
               <Input onChange={picHandler} type="file" name="profilePic" />
             </FormGroup>
             <FormGroup>
@@ -53,6 +62,7 @@ const ChangeProPicModal = (props) => {
               </Button>
             </FormGroup>
           </Form>
+          <p className="text-center">Posts created by {props.user.username}</p>
         </ModalBody>
       </Modal>
     </div>

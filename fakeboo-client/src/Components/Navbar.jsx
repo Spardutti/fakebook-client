@@ -12,7 +12,6 @@ import {
   DropdownMenu,
   NavbarText,
 } from "reactstrap";
-import { useHistory } from "react-router-dom";
 import DropdownRequests from "./DropdownRequest";
 import FriendsList from "./FriendsList";
 import ProfileModal from "./ProfileModal";
@@ -25,8 +24,6 @@ const NavBar = (props) => {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const toggleModal = () => setModal(!modal);
-
-  let history = useHistory();
 
   useEffect(() => {
     //GET FRIEND REQUEST

@@ -29,6 +29,8 @@ const Home = (props) => {
     }
   };
 
+  //GET CURRENT USER & FRIENDS POST
+
   useEffect(() => {
     getNonFriends();
   }, []);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -9,9 +9,11 @@ import {
   Form,
   Label,
 } from "reactstrap";
+import CurrentUserPosts from "./CurrentUserPosts";
 
 const ProfileModal = (props) => {
   const [profilePic, setProfilePic] = useState();
+  const [posts, setPosts] = useState();
 
   //GET THE PIC PATH WITH MULTER
   const picHandler = (e) => {
@@ -31,6 +33,19 @@ const ProfileModal = (props) => {
       window.location.reload();
     }
   };
+
+  //GET CURRENT USER POSTS
+  const getPosts = async () => {
+    const response = await fetch("/posts/" + props.id + "/posts");
+    const data = await response.json();
+    if (data.length > 0) {
+      setPosts(data);
+    }
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
   return (
     <div>
       <Modal isOpen={props.modal} toggle={props.toggleModal}>
@@ -58,7 +73,11 @@ const ProfileModal = (props) => {
               </Button>
             </FormGroup>
           </Form>
-          <p className="text-center">Posts created by {props.user.username}</p>
+          {posts ? (
+            <CurrentUserPosts posts={posts} />
+          ) : (
+            <p className="text-center"> No post created yet</p>
+          )}
         </ModalBody>
       </Modal>
     </div>

@@ -48,7 +48,7 @@ const Welcome = (props) => {
     } else {
       setLoginErros();
       localStorage.setItem("token", data.token);
-      props.setToken(data.token);
+      window.location.reload();
     }
   };
 

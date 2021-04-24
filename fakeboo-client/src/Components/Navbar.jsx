@@ -15,7 +15,7 @@ import {
 import { useHistory } from "react-router-dom";
 import DropdownRequests from "./DropdownRequest";
 import FriendsList from "./FriendsList";
-import ChangeProPicModal from "./ChangeProPicModal";
+import ProfileModal from "./ProfileModal";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,9 +62,9 @@ const NavBar = (props) => {
     await fetch("/users/logout", {
       method: "POST",
     });
-    history.push("/");
     localStorage.clear();
     props.setToken();
+    window.location.reload();
   };
 
   return props.currentUser ? (
@@ -105,7 +105,9 @@ const NavBar = (props) => {
                 </DropdownMenu>
               </UncontrolledDropdown>
             ) : (
-              <NavItem>No Friends</NavItem>
+              <NavItem>
+                <NavLink>No Friends</NavLink>
+              </NavItem>
             )}
 
             {friendRequest ? (
@@ -145,7 +147,7 @@ const NavBar = (props) => {
         </Collapse>
       </Navbar>
       {modal ? (
-        <ChangeProPicModal
+        <ProfileModal
           modal={modal}
           toggleModal={toggleModal}
           id={props.currentUser._id}

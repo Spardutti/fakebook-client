@@ -10,7 +10,7 @@ import {
   Label,
 } from "reactstrap";
 
-const ChangeProPicModal = (props) => {
+const ProfileModal = (props) => {
   const [profilePic, setProfilePic] = useState();
 
   //GET THE PIC PATH WITH MULTER
@@ -33,11 +33,7 @@ const ChangeProPicModal = (props) => {
   };
   return (
     <div>
-      <Modal
-        isOpen={props.modal}
-        className="bg-light"
-        toggle={props.toggleModal}
-      >
+      <Modal isOpen={props.modal} toggle={props.toggleModal}>
         <ModalHeader toggle={props.toggleModal}>{props.username}</ModalHeader>
         <ModalBody>
           <img
@@ -69,4 +65,4 @@ const ChangeProPicModal = (props) => {
   );
 };
 
-export default ChangeProPicModal;
+export default ProfileModal;

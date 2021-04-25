@@ -32,9 +32,11 @@ const Home = (props) => {
 
   //GET CURRENT USER & FRIENDS POST
   const getFriendPosts = async () => {
-    const response = await fetch("/posts/" + props.currentUser._id + "/home");
-    const data = await response.json();
-    setPosts(data);
+    if (props.currentUser) {
+      const response = await fetch("/posts/" + props.currentUser._id + "/home");
+      const data = await response.json();
+      setPosts(data);
+    }
   };
 
   useEffect(() => {
@@ -106,7 +108,27 @@ const Home = (props) => {
               Create Something
             </Button>
             {posts ? (
-              <FriendPosts posts={posts} />
+              posts.map((post, index) => {
+                return post.votes.indexOf(props.currentUser._id) === -1 ? (
+                  <FriendPosts
+                    currentUser={props.currentUser}
+                    key={post._id}
+                    post={post}
+                    index={index}
+                    token={props.token}
+                    liked={false}
+                  />
+                ) : (
+                  <FriendPosts
+                    currentUser={props.currentUser}
+                    key={post._id}
+                    post={post}
+                    index={index}
+                    token={props.token}
+                    liked={true}
+                  />
+                );
+              })
             ) : (
               <div className="text-center pt-1">
                 <p>Here you will see your fake friends activity... </p>

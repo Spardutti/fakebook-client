@@ -6,7 +6,7 @@ const FriendRequestButton = (props) => {
   const [requestSent, setRequestSent] = useState(props.friendRequestSent);
 
   //SEND FRIEND REQUEST
-  const friendRequest = async (id) => {
+  const friendRequest = async () => {
     await fetch("/users/" + props.id + "/request", {
       method: "PUT",
       headers: {

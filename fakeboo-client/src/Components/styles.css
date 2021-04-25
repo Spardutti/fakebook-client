@@ -71,4 +71,17 @@
   max-width: 200px;
   height: auto;
 }
+
+.footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background-color: red;
+}
 /*# sourceMappingURL=styles.css.map */

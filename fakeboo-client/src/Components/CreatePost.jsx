@@ -34,17 +34,15 @@ const CreatePostModal = (props) => {
     if (!description && !image) {
       alert("Please add a title, description and/or an image");
     }
-    if (title && image) {
-      formData.append("title", title);
-      formData.append("image", image);
-    }
-    if (title && description) {
-      formData.append("title", title);
-      formData.append("body", description);
-    }
     if (title && image && description) {
       formData.append("title", title);
       formData.append("image", image);
+      formData.append("body", description);
+    } else if (title && image) {
+      formData.append("title", title);
+      formData.append("image", image);
+    } else if (title && description) {
+      formData.append("title", title);
       formData.append("body", description);
     }
 
@@ -59,6 +57,7 @@ const CreatePostModal = (props) => {
     const data = await response.json();
     if (!data.errors) {
       props.toggle();
+      window.location.reload();
     }
   };
   return (

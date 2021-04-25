@@ -10,6 +10,7 @@ import {
 import { useState, useEffect } from "react";
 import FriendRequestButton from "./FriendRequestButton";
 import CreatePostModal from "./CreatePost";
+import FriendPosts from "./FriendPosts";
 
 const Home = (props) => {
   const [posts, setPosts] = useState();
@@ -30,9 +31,15 @@ const Home = (props) => {
   };
 
   //GET CURRENT USER & FRIENDS POST
+  const getFriendPosts = async () => {
+    const response = await fetch("/posts/" + props.currentUser._id + "/home");
+    const data = await response.json();
+    setPosts(data);
+  };
 
   useEffect(() => {
     getNonFriends();
+    getFriendPosts();
   }, []);
 
   return (
@@ -99,7 +106,7 @@ const Home = (props) => {
               Create Something
             </Button>
             {posts ? (
-              <p>posts</p>
+              <FriendPosts posts={posts} />
             ) : (
               <div className="text-center pt-1">
                 <p>Here you will see your fake friends activity... </p>

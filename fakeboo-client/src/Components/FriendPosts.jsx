@@ -11,11 +11,16 @@ import { Chat } from "react-bootstrap-icons";
 import { HandThumbsUp } from "react-bootstrap-icons";
 import { HandThumbsUpFill } from "react-bootstrap-icons";
 import { useState } from "react";
+import EditPostModal from "./EditPostModal";
+import DisplayComments from "./DisplayComments";
 
 const FriendPosts = (props) => {
   const [like, setLike] = useState(props.liked);
   const [votes, setVotes] = useState(props.post.votes.length);
   const [isOpen, setIsOpen] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+
+  const toggleEdit = () => setEditModal(!editModal);
 
   const toggleLike = () => setLike(!like);
 
@@ -60,9 +65,13 @@ const FriendPosts = (props) => {
     <Row className="mb-2 mt-2">
       <Col className="text-center">
         <Card body className="bg-dark text-light">
-          <CardTitle className="font-weigth-bold">{props.post.title}</CardTitle>
+          <CardTitle tag="h2" className="font-weigth-bold">
+            {props.post.title}
+          </CardTitle>
           {props.post.body ? <CardText>{props.post.body}</CardText> : null}
-          {props.post.image ? <img src={props.post.image} alt="Post" /> : null}
+          {props.post.image ? (
+            <img className="mb-2" src={props.post.image} alt="Post" />
+          ) : null}
           <div className=" d-flex flex-row mb-2  bg- justify-content-around">
             <div className="d-flex align-content-center">
               {like ? (
@@ -95,11 +104,18 @@ const FriendPosts = (props) => {
             Show Comments
           </Button>
           <Collapse isOpen={isOpen}>
-            <p>comments</p>
+            <DisplayComments
+              key={props.post._id}
+              post={props.post}
+              token={props.token}
+              currentUser={props.currentUser}
+            />
           </Collapse>
           {props.currentUser._id === props.post.author ? (
             <div className=" d-flex justify-content-around">
-              <Button className="mt-2 btn-info">Edit Post</Button>
+              <Button onClick={toggleEdit} className="mt-2 btn-info">
+                Edit Post
+              </Button>
               <Button onClick={deletePost} className="mt-2 btn-danger">
                 Delete Post
               </Button>
@@ -107,6 +123,14 @@ const FriendPosts = (props) => {
           ) : null}
         </Card>
       </Col>
+      {editModal ? (
+        <EditPostModal
+          toggleEdit={toggleEdit}
+          editModal={editModal}
+          post={props.post}
+          token={props.token}
+        />
+      ) : null}
     </Row>
   );
 };

@@ -100,7 +100,7 @@ const Home = (props) => {
               </div>
             ) : null}
             <Button
-              className="btn-block rounded-5 mt-2 bg-primary"
+              className="btn-block rounded-5 mt-2 bg-primary x"
               onClick={() => {
                 toggle();
               }}

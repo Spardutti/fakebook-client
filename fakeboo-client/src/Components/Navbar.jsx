@@ -83,7 +83,7 @@ const NavBar = (props) => {
           <Nav navbar className="ml-auto">
             {friendList ? (
               <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret className="test">
+                <DropdownToggle nav caret>
                   Friends
                 </DropdownToggle>
                 <DropdownMenu className="bg-dark animate__animated animate__fadeIn ">

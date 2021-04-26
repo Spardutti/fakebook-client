@@ -10,10 +10,10 @@ import {
 } from "reactstrap";
 import { useState } from "react";
 
-const CreatePostModal = (props) => {
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
-  const [image, setImage] = useState();
+const EditPost = (props) => {
+  const [title, setTitle] = useState(props.post.title);
+  const [description, setDescription] = useState(props.post.body);
+  const [image, setImage] = useState(props.post.image);
 
   const titleHandler = (e) => {
     setTitle(e.target.value);
@@ -27,7 +27,7 @@ const CreatePostModal = (props) => {
     setImage(e.target.files[0]);
   };
 
-  const createPost = async () => {
+  const updatePost = async () => {
     const formData = new FormData();
 
     if (!description && !image) {
@@ -45,24 +45,24 @@ const CreatePostModal = (props) => {
       formData.append("body", description);
     }
 
-    const response = await fetch("/posts/new", {
-      method: "POST",
+    const response = await fetch("/posts/" + props.post._id + "/edit", {
+      method: "PUT",
       headers: {
         Authorization: "Bearer " + props.token,
       },
       body: formData,
     });
 
-    const data = await response.json();
-    if (!data.errors) {
-      props.toggle();
+    if (response.status === 200) {
       window.location.reload();
     }
   };
   return (
     <div>
-      <Modal isOpen={props.postModal} toggle={props.toggle}>
-        <ModalHeader toggle={props.toggle}>Create Post</ModalHeader>
+      <Modal isOpen={props.editModal} toggle={props.toggleEdit}>
+        <ModalHeader tag="h1" toggle={props.toggleEdit}>
+          Edit Post
+        </ModalHeader>
         <ModalBody>
           <Form encType="multipart/from-data">
             <FormGroup>
@@ -71,6 +71,7 @@ const CreatePostModal = (props) => {
                 placeholder="Post Title"
                 type="text"
                 name="title"
+                value={title}
               />
             </FormGroup>
             <FormGroup>
@@ -80,14 +81,24 @@ const CreatePostModal = (props) => {
                 placeholder="Post Description"
                 name="description"
                 value={description}
+                style={{ height: "150px" }}
               />
             </FormGroup>
-            <FormGroup>
-              <Label for="image">Upload Image</Label>
-              <Input onChange={imageHandler} type="file" name="image" />
+            <FormGroup className="text-center d-flex justify-content-center  flex-column">
+              {props.post.image ? (
+                <div>
+                  <img
+                    src={props.post.image}
+                    alt="post"
+                    className="h-25 w-25"
+                  />
+                  <Label for="image">Upload Image</Label>
+                  <Input onChange={imageHandler} type="file" name="image" />
+                </div>
+              ) : null}
             </FormGroup>
-            <Button onClick={createPost} className="bg-primary btn-block">
-              Create
+            <Button onClick={updatePost} className="bg-primary btn-block">
+              Update Post
             </Button>
           </Form>
         </ModalBody>
@@ -96,4 +107,4 @@ const CreatePostModal = (props) => {
   );
 };
 
-export default CreatePostModal;
+export default EditPost;

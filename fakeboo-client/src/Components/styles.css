@@ -13,7 +13,7 @@
   .nonFriend-pics {
     height: auto;
     width: auto;
-    max-width: 300px;
+    max-width: 250px;
     margin: auto;
     margin-top: 10px;
   }
@@ -72,12 +72,14 @@
   height: auto;
 }
 
-.comment-avatar {
-  max-width: 30px;
-  border-radius: 50%;
-}
-
 .x {
   background-color: #e4e4e4;
+}
+
+.circle-image {
+  background-color: red;
+  height: 30px;
+  border-radius: 50%;
+  width: 30px;
 }
 /*# sourceMappingURL=styles.css.map */

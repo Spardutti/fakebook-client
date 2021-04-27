@@ -48,8 +48,10 @@ const Home = (props) => {
     <div className="home-container">
       <Container className="h-100 w-100" fluid>
         <Row className="h-100">
-          <Col className=" col-md-3 bg-light  d-none d-md-block">1</Col>
-          <Col className=" col-md-6" sm="12">
+          <Col className=" col-md-1 bg-light  d-none d-md-block" lg="3">
+            1
+          </Col>
+          <Col className=" col-md-10" lg="6" sm="12">
             {nonFriends ? (
               <div>
                 <p className="text-monospace text-center pt-2 text-dark">
@@ -136,7 +138,9 @@ const Home = (props) => {
               </div>
             )}
           </Col>
-          <Col className="col-md-3 bg-light d-none d-md-block">3 </Col>
+          <Col className="col-md-1 bg-light d-none d-md-block" lg="3">
+            3{" "}
+          </Col>
         </Row>
       </Container>
       {postModal ? (

@@ -29,7 +29,7 @@ const DisplayComments = (props) => {
   };
 
   const addComment = async () => {
-    const response = await fetch("/posts/" + props.post._id + "/comment", {
+    await fetch("/posts/" + props.post._id + "/comment", {
       method: "PUT",
       headers: {
         Authorization: "Bearer " + props.token,
@@ -39,8 +39,6 @@ const DisplayComments = (props) => {
         body: comment,
       }),
     });
-    const data = await response.json();
-    console.log(data);
   };
   return (
     <div>
@@ -52,7 +50,7 @@ const DisplayComments = (props) => {
       </InputGroup>
       {props.post.comments.map((comment, index) => {
         return (
-          <div key={comment._id} id={index}>
+          <div key={comment.id}>
             <Card className="mt-2 text-dark text-left">
               <Row
                 className=" p-1 d-flex align-items-center 
@@ -93,8 +91,9 @@ const DisplayComments = (props) => {
                   reply={comment.reply}
                   comment={comment}
                   token={props.token}
-                  index={index}
+                  index={props.index}
                   currentUser={props.currentUser}
+                  post={props.post}
                 />
               </Collapse>
             </Card>

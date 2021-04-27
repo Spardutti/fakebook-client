@@ -13,6 +13,7 @@ import { HandThumbsUpFill } from "react-bootstrap-icons";
 import { useState } from "react";
 import EditPostModal from "./EditPostModal";
 import DisplayComments from "./DisplayComments";
+import uniqid from "uniqid";
 
 const FriendPosts = (props) => {
   const [like, setLike] = useState(props.liked);
@@ -105,7 +106,7 @@ const FriendPosts = (props) => {
           </Button>
           <Collapse isOpen={isOpen}>
             <DisplayComments
-              key={props.post._id}
+              key={uniqid()}
               post={props.post}
               token={props.token}
               currentUser={props.currentUser}

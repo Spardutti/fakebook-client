@@ -4,10 +4,8 @@ import {
   InputGroupAddon,
   Button,
   Card,
-  CardTitle,
   CardBody,
   CardText,
-  CardHeader,
   Row,
   Col,
 } from "reactstrap";
@@ -22,23 +20,18 @@ const DisplayReplies = (props) => {
   };
 
   const addReply = async () => {
-    const response = await fetch(
-      "/posts/comment/" + props.comment._id + "/reply",
-      {
-        method: "PUT",
-        headers: {
-          Authorization: "Bearer " + props.token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          index: props.index,
-          username: props.currentUser.username,
-          body: reply,
-        }),
-      }
-    );
-    const data = await response.json();
-    console.log(data);
+    await fetch("/posts/" + props.post._id + "/reply", {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + props.token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        index: props.index,
+        username: props.currentUser.username,
+        reply,
+      }),
+    });
   };
   return (
     <div>
@@ -51,7 +44,7 @@ const DisplayReplies = (props) => {
       {props.reply.map((reply) => {
         return (
           <div key={reply._id}>
-            <Card className="mt-2 text-dark text-left">
+            <Card className="mt-2 ml-5 text-dark text-left">
               <Row
                 className=" p-1 d-flex align-items-center 
                   w-100 mx-auto"
@@ -78,7 +71,6 @@ const DisplayReplies = (props) => {
               <CardBody className=" p-1">
                 <CardText>{reply.reply}</CardText>
               </CardBody>
-              <Button> Reply</Button>
             </Card>
           </div>
         );

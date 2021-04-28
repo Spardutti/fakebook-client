@@ -22,7 +22,10 @@ const NavBar = (props) => {
   const [friendList, setFriendList] = useState();
   const [modal, setModal] = useState(false);
 
+  //CONTROL THE DROPDOW OF THE NAVBAR ON SM DEVICES
   const toggleDropdown = () => setIsOpen(!isOpen);
+
+  //TOGGLE THE PROFILE WINDOW
   const toggleModal = () => setModal(!modal);
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const NavBar = (props) => {
       setFriendRequest(data);
     };
 
-    //GETFRIEND LIST
+    //GET FRIEND LIST
     const getFriendList = async () => {
       const response = await fetch(
         "/users/" + props.currentUser._id + "/friends"
@@ -43,7 +46,7 @@ const NavBar = (props) => {
       const data = await response.json();
       setFriendList(data);
     };
-
+    //CHECK IF THE USER HAVE REQUEST AND/OR FRIENDS
     if (props.currentUser) {
       if (props.currentUser.request.length > 0) {
         getRequestUsers();
@@ -69,7 +72,7 @@ const NavBar = (props) => {
       <Navbar expand="md" className="navbar-dark bg-dark">
         <NavbarBrand className="">
           <img
-            className="profile-pic rounded-circle"
+            className="profile-pic mr-2 rounded-circle"
             src={props.currentUser.profilePic}
             alt="user profile pic"
             style={{ cursor: "pointer" }}

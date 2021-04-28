@@ -17,6 +17,7 @@ const Home = (props) => {
   const [nonFriends, setNonFriends] = useState();
   const [postModal, setPostModal] = useState(false);
 
+  //TOGGLES CREATE POST MODAL
   const toggle = () => setPostModal(!postModal);
 
   //GET NON FRIEND USERS
@@ -31,6 +32,7 @@ const Home = (props) => {
   };
 
   //GET CURRENT USER & FRIENDS POST
+  //TODO FIX THIS
   const getFriendPosts = async () => {
     if (props.currentUser) {
       const response = await fetch("/posts/" + props.currentUser._id + "/home");

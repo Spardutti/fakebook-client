@@ -38,10 +38,10 @@ const DropdownRequests = (props) => {
           {props.user.username}
         </CardTitle>
         <Button onClick={acceptFriendRequest} className="m-1 p-0 bg-success">
-          Accept
+          <i class="fas fa-user-plus"></i>
         </Button>
         <Button onClick={rejectFriendRequest} className="m-1 p-0 bg-danger">
-          Decline
+          <i class="fas fa-user-minus"></i>
         </Button>
       </Card>
     </div>

@@ -21,12 +21,16 @@ const FriendPosts = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [editModal, setEditModal] = useState(false);
 
+  //TOGGLES EDIT POST MODAL
   const toggleEdit = () => setEditModal(!editModal);
 
+  //TOGGLES THE LIKE ICON
   const toggleLike = () => setLike(!like);
 
+  //COLLAPSE THE COMMENTS
   const openCollapse = () => setIsOpen(!isOpen);
 
+  //LIKE A POST
   const likePost = async () => {
     const response = await fetch("/posts/" + props.post._id + "/like", {
       method: "PUT",
@@ -39,6 +43,7 @@ const FriendPosts = (props) => {
     }
   };
 
+  //UNLIKE A POST
   const unlikePost = async () => {
     const response = await fetch("/posts/" + props.post._id + "/unlike", {
       method: "PUT",
@@ -51,7 +56,8 @@ const FriendPosts = (props) => {
     }
   };
 
-  const deletePost = async (index) => {
+  //DELETE A POST
+  const deletePost = async () => {
     const response = await fetch("/posts/" + props.post._id + "/delete", {
       method: "DELETE",
       headers: {
@@ -69,9 +75,16 @@ const FriendPosts = (props) => {
           <CardTitle tag="h2" className="font-weigth-bold">
             {props.post.title}
           </CardTitle>
+          <p className="text-muted">Posted by {props.post.username}</p>
+
+          {/* CHECK IF THE POST CONTAINS AN IMAGE OR TEXT ONLY*/}
           {props.post.body ? <CardText>{props.post.body}</CardText> : null}
           {props.post.image ? (
-            <img className="mb-2" src={props.post.image} alt="Post" />
+            <img
+              className="mb-2 post-image"
+              src={props.post.image}
+              alt="Post"
+            />
           ) : null}
           <div className=" d-flex flex-row mb-2  bg- justify-content-around">
             <div className="d-flex align-content-center">
@@ -112,13 +125,15 @@ const FriendPosts = (props) => {
               currentUser={props.currentUser}
             />
           </Collapse>
+          {/*CHECK IF THE CURRENT USER IS THE AUTHOR OF THE POST, IF SO SHOW
+          DELETE AND EDIT BUTTONS  */}
           {props.currentUser._id === props.post.author ? (
             <div className=" d-flex justify-content-around">
               <Button onClick={toggleEdit} className="mt-2 btn-info">
-                Edit Post
+                <i className="fas fa-pen"></i>
               </Button>
               <Button onClick={deletePost} className="mt-2 btn-danger">
-                Delete Post
+                <i className="fas fa-trash-alt"></i>
               </Button>
             </div>
           ) : null}

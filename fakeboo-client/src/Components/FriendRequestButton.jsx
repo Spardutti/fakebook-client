@@ -25,7 +25,7 @@ const FriendRequestButton = (props) => {
       style={{ fontSize: "13px" }}
       disabled
     >
-      Request Sent
+      <i className="fas fa-user-check"></i>
     </Button>
   ) : (
     <Button
@@ -35,7 +35,7 @@ const FriendRequestButton = (props) => {
         friendRequest();
       }}
     >
-      Add Friend
+      <i className="fas fa-user-plus"></i>
     </Button>
   );
 };

@@ -1,5 +1,6 @@
 import { Card, Button, CardTitle, CardText, Row, Col } from "reactstrap";
 
+//CURRENT USER POST DISPLAYED IN THE PROFILE
 const CurrentUserPosts = (props) => {
   return props.posts.map((post, index) => {
     return (

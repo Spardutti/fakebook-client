@@ -27,6 +27,7 @@ const CreatePostModal = (props) => {
     setImage(e.target.files[0]);
   };
 
+  // VALIDATE THE FIELDS AND CREATES A POST
   const createPost = async () => {
     const formData = new FormData();
 

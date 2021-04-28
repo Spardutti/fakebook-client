@@ -117,6 +117,7 @@ const CreateAccountModal = (props) => {
               name="confirm"
             ></Input>
           </FormGroup>
+          {/* SHOW SUCCESS OR ERROS ON FOOTER*/}
           {success ? (
             <ModalFooter>
               <p>Account Created Succesfully!</p>

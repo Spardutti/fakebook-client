@@ -27,6 +27,7 @@ const EditPost = (props) => {
     setImage(e.target.files[0]);
   };
 
+  //VALIDATE THE FIELS BEFORE UPDATING THE POST
   const updatePost = async () => {
     const formData = new FormData();
 

@@ -20,8 +20,11 @@ const FriendsList = (props) => {
         <CardTitle tag="h5" className=" p-0 m-0 text-dark text-center">
           {props.friend.username}
         </CardTitle>
-        <Button className="m-1 p-0 bg-danger" onClick={deleteFriend}>
-          Delete
+        <Button
+          className="m-1 p-0 bg-danger w-25 mx-auto"
+          onClick={deleteFriend}
+        >
+          <i className="fas fa-user-minus"></i>
         </Button>
       </Card>
     </div>

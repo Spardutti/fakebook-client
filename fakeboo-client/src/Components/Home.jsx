@@ -37,6 +37,7 @@ const Home = (props) => {
     if (props.currentUser) {
       const response = await fetch("/posts/" + props.currentUser._id + "/home");
       const data = await response.json();
+      console.log(data);
       setPosts(data);
     }
   };
@@ -112,26 +113,28 @@ const Home = (props) => {
               Create Something
             </Button>
             {posts ? (
-              posts.map((post, index) => {
-                return post.votes.indexOf(props.currentUser._id) === -1 ? (
-                  <FriendPosts
-                    currentUser={props.currentUser}
-                    key={post._id}
-                    post={post}
-                    index={index}
-                    token={props.token}
-                    liked={false}
-                  />
-                ) : (
-                  <FriendPosts
-                    currentUser={props.currentUser}
-                    key={post._id}
-                    post={post}
-                    index={index}
-                    token={props.token}
-                    liked={true}
-                  />
-                );
+              posts.map((postByUser, index) => {
+                return postByUser.map((post, postIndex) => {
+                  return post.votes.indexOf(props.currentUser._id) === -1 ? (
+                    <FriendPosts
+                      currentUser={props.currentUser}
+                      key={post._id}
+                      post={post}
+                      index={index}
+                      token={props.token}
+                      liked={false}
+                    />
+                  ) : (
+                    <FriendPosts
+                      currentUser={props.currentUser}
+                      key={post._id}
+                      post={post}
+                      index={index}
+                      token={props.token}
+                      liked={true}
+                    />
+                  );
+                });
               })
             ) : (
               <div className="text-center pt-1">

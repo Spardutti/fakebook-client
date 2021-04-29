@@ -69,7 +69,7 @@ const FriendPosts = (props) => {
     }
   };
   return (
-    <Row className="mb-2 mt-2">
+    <Row className="mb-2 mt-2" id={props.post._id}>
       <Col className="text-center">
         <Card body className="bg-dark text-light">
           <CardTitle tag="h2" className="font-weigth-bold">

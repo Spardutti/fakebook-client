@@ -74,7 +74,7 @@ const ProfileModal = (props) => {
             </FormGroup>
           </Form>
           {posts ? (
-            <CurrentUserPosts posts={posts} />
+            <CurrentUserPosts posts={posts} toggle={props.toggleModal} />
           ) : (
             <p className="text-center"> No post created yet</p>
           )}

@@ -24,7 +24,7 @@ const DisplayComments = (props) => {
   };
 
   //DELETES A COMMENT
-  const deleteComment = async () => {
+  const deleteComment = async (commentId) => {
     const response = await fetch("/posts/comment/" + props.post._id, {
       method: "DELETE",
       headers: {
@@ -32,7 +32,7 @@ const DisplayComments = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        index: props.index,
+        id: commentId,
       }),
     });
     const data = await response.json();
@@ -97,7 +97,11 @@ const DisplayComments = (props) => {
                     className="d-flex justify-content-start align-items-center"
                   >
                     <p size={"sm"} className="text-right btn  ">
-                      <Trash onClick={deleteComment} />
+                      <Trash
+                        onClick={() => {
+                          deleteComment(comment._id);
+                        }}
+                      />
                     </p>
                     <p size={"sm"} className="text-right btn ml-1">
                       <Pencil onClick={toggle} />

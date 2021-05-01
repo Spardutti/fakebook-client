@@ -10,7 +10,7 @@ import {
   Col,
 } from "reactstrap";
 import { Pencil, Trash } from "react-bootstrap-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DisplayReplies from "./DisplayReplies";
 import EditCommentModal from "./EditCommentModal";
 import uniqid from "uniqid";
@@ -19,7 +19,6 @@ const DisplayComments = (props) => {
   const [comment, setComment] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [commentIndex, setCommentIndex] = useState();
-  const [comments, setComments] = useState(props.comments);
 
   //TOGGLE THE EDIT COMMENT MODAL
   const toggle = (e) => {
@@ -30,9 +29,9 @@ const DisplayComments = (props) => {
   //DELETES A COMMENT
   const deleteComment = async (index) => {
     //UPDATE REACT STATE
-    const newComments = [...comments];
+    const newComments = [...props.comments];
     newComments.splice(index, 1);
-    setComments(newComments);
+    props.setComments(newComments);
 
     await fetch("/posts/comment/" + props.post._id, {
       method: "DELETE",
@@ -63,7 +62,7 @@ const DisplayComments = (props) => {
       }),
     });
     let data = await response.json();
-    setComments((old) => [...old, data]);
+    props.setComments((old) => [...old, data]);
   };
 
   return (
@@ -80,7 +79,7 @@ const DisplayComments = (props) => {
           </Button>
         </InputGroupAddon>
       </InputGroup>
-      {comments.map((comment, index) => {
+      {props.comments.map((comment, index) => {
         return (
           <div key={uniqid()}>
             <Card className="mt-2 text-dark text-left">
@@ -123,7 +122,7 @@ const DisplayComments = (props) => {
               <CardBody className=" p-1">
                 <CardText>{comment.comment}</CardText>
               </CardBody>
-              {/*<DisplayReplies
+              <DisplayReplies
                 key={comment._id}
                 reply={comment.reply}
                 comment={comment}
@@ -131,7 +130,7 @@ const DisplayComments = (props) => {
                 index={index}
                 currentUser={props.currentUser}
                 post={props.post}
-              /> */}
+              />
             </Card>
           </div>
         );
@@ -144,8 +143,8 @@ const DisplayComments = (props) => {
           post={props.post}
           token={props.token}
           commentIndex={commentIndex}
-          comments={comments}
-          setComents={setComments}
+          comments={props.comments}
+          setComents={props.setComments}
         />
       ) : null}
     </div>

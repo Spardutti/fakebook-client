@@ -20,6 +20,7 @@ const FriendPosts = (props) => {
   const [votes, setVotes] = useState(props.post.votes.length);
   const [isOpen, setIsOpen] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const [comments, setComments] = useState(props.post.comments);
 
   //TOGGLES EDIT POST MODAL
   const toggleEdit = () => setEditModal(!editModal);
@@ -123,7 +124,8 @@ const FriendPosts = (props) => {
               post={props.post}
               token={props.token}
               currentUser={props.currentUser}
-              comments={props.post.comments}
+              comments={comments}
+              setComments={setComments}
             />
           </Collapse>
           {/*CHECK IF THE CURRENT USER IS THE AUTHOR OF THE POST, IF SO SHOW

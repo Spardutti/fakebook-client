@@ -119,7 +119,6 @@ const Home = (props) => {
                       currentUser={props.currentUser}
                       key={post._id}
                       post={post}
-                      index={index}
                       token={props.token}
                       liked={false}
                     />
@@ -128,7 +127,6 @@ const Home = (props) => {
                       currentUser={props.currentUser}
                       key={post._id}
                       post={post}
-                      index={index}
                       token={props.token}
                       liked={true}
                     />

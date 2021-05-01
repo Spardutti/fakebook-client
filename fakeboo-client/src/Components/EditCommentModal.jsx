@@ -6,11 +6,12 @@ import {
   Input,
   ModalBody,
   FormGroup,
-  ModalFooter,
 } from "reactstrap";
 
 const EditCommentModal = (props) => {
-  const [comment, setComment] = useState(props.comment);
+  const [comment, setComment] = useState(
+    props.post.comments[props.commentIndex].comment
+  );
 
   const commentHandler = (e) => {
     setComment(e.target.value);
@@ -18,18 +19,20 @@ const EditCommentModal = (props) => {
 
   //EDIT THE SELECTED COMMENT
   const editComment = async () => {
-    const response = await fetch("/posts/comment/" + props.post._id, {
+    await fetch("/posts/comment/" + props.post._id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + props.token,
       },
       body: JSON.stringify({
-        comment: comment,
-        index: props.index,
+        comment,
+        index: props.commentIndex,
       }),
     });
-    const data = await response.json();
+    const commentsArr = props.comments;
+    commentsArr[props.commentIndex].comment = comment;
+    props.setIsOpen(!props.isOpen);
   };
 
   return (
@@ -38,7 +41,12 @@ const EditCommentModal = (props) => {
       <ModalBody>
         <FormGroup>
           <Input onChange={commentHandler} name="comment" value={comment} />
-          <Button onClick={editComment} className="mt-2 bg-primary btn-block">
+          <Button
+            onClick={() => {
+              editComment();
+            }}
+            className="mt-2 bg-primary btn-block"
+          >
             Edit
           </Button>
         </FormGroup>

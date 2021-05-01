@@ -37,7 +37,6 @@ const Home = (props) => {
     if (props.currentUser) {
       const response = await fetch("/posts/" + props.currentUser._id + "/home");
       const data = await response.json();
-      console.log(data);
       setPosts(data);
     }
   };

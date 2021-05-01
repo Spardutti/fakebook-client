@@ -123,6 +123,7 @@ const FriendPosts = (props) => {
               post={props.post}
               token={props.token}
               currentUser={props.currentUser}
+              comments={props.post.comments}
             />
           </Collapse>
           {/*CHECK IF THE CURRENT USER IS THE AUTHOR OF THE POST, IF SO SHOW

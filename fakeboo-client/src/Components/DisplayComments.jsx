@@ -10,32 +10,40 @@ import {
   Col,
 } from "reactstrap";
 import { Pencil, Trash } from "react-bootstrap-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DisplayReplies from "./DisplayReplies";
 import EditCommentModal from "./EditCommentModal";
+import uniqid from "uniqid";
 
 const DisplayComments = (props) => {
   const [comment, setComment] = useState();
   const [isOpen, setIsOpen] = useState(false);
+  const [commentIndex, setCommentIndex] = useState();
+  const [comments, setComments] = useState(props.comments);
 
   //TOGGLE THE EDIT COMMENT MODAL
-  const toggle = () => {
+  const toggle = (e) => {
+    setCommentIndex(e.target.id);
     setIsOpen(!isOpen);
   };
 
   //DELETES A COMMENT
-  const deleteComment = async (commentId) => {
-    const response = await fetch("/posts/comment/" + props.post._id, {
+  const deleteComment = async (index) => {
+    //UPDATE REACT STATE
+    const newComments = [...comments];
+    newComments.splice(index, 1);
+    setComments(newComments);
+
+    await fetch("/posts/comment/" + props.post._id, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + props.token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: commentId,
+        commentIndex: index,
       }),
     });
-    const data = await response.json();
   };
 
   const commentHandler = (e) => {
@@ -44,17 +52,20 @@ const DisplayComments = (props) => {
 
   //ADDS A COMMENT
   const addComment = async () => {
-    await fetch("/posts/" + props.post._id + "/comment", {
+    let response = await fetch("/posts/" + props.post._id + "/comment", {
       method: "PUT",
       headers: {
         Authorization: "Bearer " + props.token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        body: comment,
+        comment,
       }),
     });
+    let data = await response.json();
+    setComments((old) => [...old, data]);
   };
+
   return (
     <div>
       <InputGroup className="mt-2">
@@ -69,9 +80,9 @@ const DisplayComments = (props) => {
           </Button>
         </InputGroupAddon>
       </InputGroup>
-      {props.post.comments.map((comment, index) => {
+      {comments.map((comment, index) => {
         return (
-          <div key={comment._id}>
+          <div key={uniqid()}>
             <Card className="mt-2 text-dark text-left">
               <Row
                 className=" p-1 d-flex align-items-center 
@@ -80,7 +91,7 @@ const DisplayComments = (props) => {
                 <Col md={1} sm="2" xs="1" className="pl-0">
                   <img
                     className="circle-image"
-                    src={comment.profilePic}
+                    src={props.currentUser.profilePic}
                     alt="avatar"
                   />
                 </Col>
@@ -99,12 +110,12 @@ const DisplayComments = (props) => {
                     <p size={"sm"} className="text-right btn  ">
                       <Trash
                         onClick={() => {
-                          deleteComment(comment._id);
+                          deleteComment(index);
                         }}
                       />
                     </p>
                     <p size={"sm"} className="text-right btn ml-1">
-                      <Pencil onClick={toggle} />
+                      <Pencil onClick={toggle} id={index} />
                     </p>
                   </Col>
                 ) : null}
@@ -112,7 +123,7 @@ const DisplayComments = (props) => {
               <CardBody className=" p-1">
                 <CardText>{comment.comment}</CardText>
               </CardBody>
-              <DisplayReplies
+              {/*<DisplayReplies
                 key={comment._id}
                 reply={comment.reply}
                 comment={comment}
@@ -120,21 +131,23 @@ const DisplayComments = (props) => {
                 index={index}
                 currentUser={props.currentUser}
                 post={props.post}
-              />
+              /> */}
             </Card>
-            {isOpen ? (
-              <EditCommentModal
-                isOpen={isOpen}
-                comment={props.post.comments[index].comment}
-                toggle={toggle}
-                post={props.post}
-                token={props.token}
-                index={index}
-              />
-            ) : null}
           </div>
         );
       })}
+      {isOpen ? (
+        <EditCommentModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          toggle={toggle}
+          post={props.post}
+          token={props.token}
+          commentIndex={commentIndex}
+          comments={comments}
+          setComents={setComments}
+        />
+      ) : null}
     </div>
   );
 };

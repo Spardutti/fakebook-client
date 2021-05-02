@@ -63,6 +63,8 @@ const DisplayComments = (props) => {
     });
     let data = await response.json();
     props.setComments((old) => [...old, data]);
+    props.post.comments.push(data);
+    console.log(props.comments);
   };
 
   return (
@@ -126,10 +128,12 @@ const DisplayComments = (props) => {
                 key={comment._id}
                 reply={comment.reply}
                 comment={comment}
+                comments={props.comments}
                 token={props.token}
                 index={index}
                 currentUser={props.currentUser}
                 post={props.post}
+                setComents={props.setComents}
               />
             </Card>
           </div>

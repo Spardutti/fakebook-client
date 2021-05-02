@@ -9,7 +9,9 @@ import {
 } from "reactstrap";
 
 const EditCommentModal = (props) => {
-  const [reply, setReply] = useState(props.reply);
+  const [reply, setReply] = useState(
+    props.post.comments[props.commentIndex].reply[props.replyIndex].reply
+  );
 
   const replyHandler = (e) => {
     setReply(e.target.value);
@@ -17,22 +19,21 @@ const EditCommentModal = (props) => {
 
   //EDIT THE SELECTED REPLY
   const editReply = async () => {
-    const response = await fetch(
-      "/posts/" + props.post._id + "/comment/reply",
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + props.token,
-        },
-        body: JSON.stringify({
-          reply,
-          commentIndex: props.commentIndex,
-          replyIndex: props.replyIndex,
-        }),
-      }
-    );
-    const data = await response.json();
+    await fetch("/posts/" + props.post._id + "/comment/reply", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + props.token,
+      },
+      body: JSON.stringify({
+        reply,
+        commentIndex: props.commentIndex,
+        replyIndex: props.replyIndex,
+      }),
+    });
+    const replyArr = props.post.comments[props.commentIndex].reply;
+    replyArr[props.replyIndex].reply = reply;
+    props.toggle();
   };
 
   return (
@@ -41,7 +42,12 @@ const EditCommentModal = (props) => {
       <ModalBody>
         <FormGroup>
           <Input onChange={replyHandler} name="reply" value={reply} />
-          <Button onClick={editReply} className="mt-2 bg-primary btn-block">
+          <Button
+            onClick={() => {
+              editReply();
+            }}
+            className="mt-2 bg-primary btn-block"
+          >
             Edit
           </Button>
         </FormGroup>

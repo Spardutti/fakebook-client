@@ -18,10 +18,14 @@ const DisplayReplies = (props) => {
   const [reply, setReply] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [replies, setReplies] = useState(props.comment.reply);
+  const [replyIdx, setReplyIdx] = useState();
 
   //TOGGLE EDIT REPLY MODAL
   const toggle = () => {
     setIsOpen(!isOpen);
+  };
+  const getIdx = (e) => {
+    setReplyIdx(e.target.id);
   };
 
   const replyHandler = (e) => {
@@ -48,6 +52,8 @@ const DisplayReplies = (props) => {
     arr.push(data);
     setReplies(arr);
     setReply("");
+    props.comments[props.index].reply.push(data);
+    console.log(props.comments[props.index].reply);
   };
 
   //DELETES A REPLY
@@ -55,22 +61,19 @@ const DisplayReplies = (props) => {
     const arr = [...replies];
     arr.splice(replyIndex, 1);
     setReplies(arr);
+    props.post.comments[props.index].reply.splice(replyIndex, 1);
 
-    const response = await fetch(
-      "/posts/comment/" + props.post._id + "/reply",
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + props.token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          commentIndex: props.index,
-          replyIndex: replyIndex,
-        }),
-      }
-    );
-    const data = await response.json();
+    await fetch("/posts/comment/" + props.post._id + "/reply", {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + props.token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        commentIndex: props.index,
+        replyIndex: replyIndex,
+      }),
+    });
   };
   return (
     <div>
@@ -117,7 +120,13 @@ const DisplayReplies = (props) => {
                           />
                         </p>
                         <p size={"sm"} className="text-right btn mr-1">
-                          <Pencil onClick={toggle} />
+                          <Pencil
+                            onClick={(e) => {
+                              toggle();
+                              getIdx(e);
+                            }}
+                            id={replyIndex}
+                          />
                         </p>
                       </Col>
                     ) : null}
@@ -126,21 +135,22 @@ const DisplayReplies = (props) => {
                     <CardText>{reply.reply}</CardText>
                   </CardBody>
                 </Card>
-                {isOpen ? (
-                  <EditReply
-                    toggle={toggle}
-                    isOpen={isOpen}
-                    token={props.token}
-                    commentIndex={props.index}
-                    replyIndex={replyIndex}
-                    reply={reply.reply}
-                    post={props.post}
-                  />
-                ) : null}
               </div>
             );
           })
         : null}
+      {isOpen ? (
+        <EditReply
+          toggle={toggle}
+          isOpen={isOpen}
+          token={props.token}
+          commentIndex={props.index}
+          replyIndex={replyIdx}
+          reply={reply.reply}
+          post={props.post}
+          replies={replies}
+        />
+      ) : null}
     </div>
   );
 };

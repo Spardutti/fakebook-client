@@ -28,6 +28,19 @@ const Welcome = (props) => {
     setPassword(e.target.value);
   };
 
+  const googleLogin = async (e) => {
+    e.preventDefault();
+    const response = await fetch("/users/google", {
+      mode: "no-cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+  };
+
   //CHECK CREDENTIALS AND LOG IN OR DISPLAY ERROR
   const loginUser = async (e) => {
     e.preventDefault();
@@ -94,6 +107,7 @@ const Welcome = (props) => {
                 >
                   Log In
                 </Button>
+                <Button onClick={googleLogin}> Google Log In</Button>
               </FormGroup>
               <hr />
               <div className="create">

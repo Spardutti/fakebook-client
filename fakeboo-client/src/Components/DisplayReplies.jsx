@@ -53,7 +53,6 @@ const DisplayReplies = (props) => {
     setReplies(arr);
     setReply("");
     props.comments[props.index].reply.push(data);
-    console.log(props.comments[props.index].reply);
   };
 
   //DELETES A REPLY
@@ -95,10 +94,10 @@ const DisplayReplies = (props) => {
         ? replies.map((reply, replyIndex) => {
             return (
               <div key={uniqid()}>
-                <Card className="mt-2 mb-1 text-dark text-left">
+                <Card className="reply-container mt-2 mb-2 text-dark pl-1 text-left">
                   <Row
                     className=" p-1 d-flex align-items-center 
-                  w-100 mx-auto"
+                  w-100 "
                   >
                     <Col className="col-md-9 " sm="9" xs="8">
                       <h5>{reply.username}</h5>

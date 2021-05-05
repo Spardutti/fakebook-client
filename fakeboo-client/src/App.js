@@ -12,6 +12,9 @@ function App() {
 
   //GET TOKEN AND CHECK IF ITS VALID
   const getToken = async () => {
+    let url = window.location;
+    const urlToken = new URLSearchParams(url.search).get("token");
+    console.log(urlToken);
     const localToken = localStorage.getItem("token");
     if (localToken) {
       const decodedToken = jwt.decode(localToken);
@@ -25,6 +28,11 @@ function App() {
         setToken(localToken);
       }
     }
+  };
+
+  const x = () => {
+    let url = window.lcation;
+    console.log(url);
   };
 
   useEffect(() => {

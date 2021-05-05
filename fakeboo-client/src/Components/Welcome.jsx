@@ -29,16 +29,7 @@ const Welcome = (props) => {
   };
 
   const googleLogin = async (e) => {
-    e.preventDefault();
-    const response = await fetch("/users/google", {
-      mode: "no-cors",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log(data);
+    window.open("http://localhost:5000/users/google", "_self");
   };
 
   //CHECK CREDENTIALS AND LOG IN OR DISPLAY ERROR

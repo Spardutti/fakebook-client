@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/fakebook-client/static/css/main.d2346b3d.chunk.css",
+    "main.js": "/fakebook-client/static/js/main.8095c245.chunk.js",
+    "main.js.map": "/fakebook-client/static/js/main.8095c245.chunk.js.map",
+    "runtime-main.js": "/fakebook-client/static/js/runtime-main.b5f224a4.js",
+    "runtime-main.js.map": "/fakebook-client/static/js/runtime-main.b5f224a4.js.map",
+    "static/css/2.4c97ca4f.chunk.css": "/fakebook-client/static/css/2.4c97ca4f.chunk.css",
+    "static/js/2.dc53ed60.chunk.js": "/fakebook-client/static/js/2.dc53ed60.chunk.js",
+    "static/js/2.dc53ed60.chunk.js.map": "/fakebook-client/static/js/2.dc53ed60.chunk.js.map",
+    "index.html": "/fakebook-client/index.html",
+    "static/css/2.4c97ca4f.chunk.css.map": "/fakebook-client/static/css/2.4c97ca4f.chunk.css.map",
+    "static/css/main.d2346b3d.chunk.css.map": "/fakebook-client/static/css/main.d2346b3d.chunk.css.map",
+    "static/js/2.dc53ed60.chunk.js.LICENSE.txt": "/fakebook-client/static/js/2.dc53ed60.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b5f224a4.js",
+    "static/css/2.4c97ca4f.chunk.css",
+    "static/js/2.dc53ed60.chunk.js",
+    "static/css/main.d2346b3d.chunk.css",
+    "static/js/main.8095c245.chunk.js"
+  ]
+}

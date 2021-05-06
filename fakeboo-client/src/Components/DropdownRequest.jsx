@@ -3,30 +3,36 @@ import { Card, Button, CardTitle } from "reactstrap";
 const DropdownRequests = (props) => {
   //ACCEPT FRIEND REQUEST
   const acceptFriendRequest = async () => {
-    const response = await fetch(`/users/${props.id}/accept`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        index: props.index,
-      }),
-    });
+    const response = await fetch(
+      `https://glacial-wildwood-15974.herokuapp.com/users/${props.id}/accept`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          index: props.index,
+        }),
+      }
+    );
     if (response.status === 200) {
       window.location.reload();
     }
   };
   // DELETE FRIEND REQUEST
   const rejectFriendRequest = async () => {
-    const response = await fetch(`/users/${props.id}/reject`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        index: props.index,
-      }),
-    });
+    const response = await fetch(
+      `https://glacial-wildwood-15974.herokuapp.com/users/${props.id}/reject`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          index: props.index,
+        }),
+      }
+    );
     if (response.status === 200) {
       window.location.reload();
     }

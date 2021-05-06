@@ -25,10 +25,15 @@ const ProfileModal = (props) => {
     const formData = new FormData();
     formData.append("profilePic", profilePic);
 
-    const response = await fetch("/users/" + props.id + "/profile", {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/users/" +
+        props.id +
+        "/profile",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
     if (response.status === 200) {
       window.location.reload();
     }
@@ -36,7 +41,11 @@ const ProfileModal = (props) => {
 
   //GET CURRENT USER POSTS
   const getPosts = async () => {
-    const response = await fetch("/posts/" + props.id + "/posts");
+    const response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/posts/" +
+        props.id +
+        "/posts"
+    );
     const data = await response.json();
     if (data.length > 0) {
       setPosts(data);

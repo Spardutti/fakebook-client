@@ -23,9 +23,14 @@ const Home = (props) => {
   //GET NON FRIEND USERS
   const getNonFriends = async () => {
     if (props.currentUser) {
-      const response = await fetch("/users/" + props.currentUser._id + "/all", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://glacial-wildwood-15974.herokuapp.com/users/" +
+          props.currentUser._id +
+          "/all",
+        {
+          method: "GET",
+        }
+      );
       const data = await response.json();
       setNonFriends(data);
     }
@@ -34,7 +39,11 @@ const Home = (props) => {
   //GET CURRENT USER & FRIENDS POST
   const getFriendPosts = async () => {
     if (props.currentUser) {
-      const response = await fetch("/posts/" + props.currentUser._id + "/home");
+      const response = await fetch(
+        "https://glacial-wildwood-15974.herokuapp.com/posts/" +
+          props.currentUser._id +
+          "/home"
+      );
       const data = await response.json();
       setPosts(data);
     }

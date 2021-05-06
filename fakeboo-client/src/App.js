@@ -14,7 +14,6 @@ function App() {
   const getToken = async () => {
     let url = window.location;
     const urlToken = new URLSearchParams(url.search).get("token");
-    console.log(urlToken);
     const localToken = localStorage.getItem("token");
     if (localToken) {
       const decodedToken = jwt.decode(localToken);
@@ -22,17 +21,35 @@ function App() {
       if (expiresAt < new Date(Date.now())) {
         localStorage.clear();
       } else {
-        const response = await fetch("/users/" + decodedToken._id + "/current");
+        const response = await fetch(
+          "https://glacial-wildwood-15974.herokuapp.com/users/" +
+            decodedToken._id +
+            "/current"
+        );
         const data = await response.json();
         setCurrentUser(data);
         setToken(localToken);
       }
     }
-  };
-
-  const x = () => {
-    let url = window.lcation;
-    console.log(url);
+    //check if user is loggin with google
+    else if (urlToken) {
+      window.history.pushState({}, "", url.href.split("?")[0]);
+      const decodedToken = jwt.decode(urlToken);
+      const expiresAt = new Date(decodedToken.exp * 1000);
+      if (expiresAt < new Date(Date.now())) {
+        localStorage.clear();
+      } else {
+        const response = await fetch(
+          "https://glacial-wildwood-15974.herokuapp.com/users/" +
+            decodedToken._id +
+            "/current"
+        );
+        const data = await response.json();
+        setCurrentUser(data);
+        setToken(urlToken);
+        localStorage.setItem("token", urlToken);
+      }
+    }
   };
 
   useEffect(() => {

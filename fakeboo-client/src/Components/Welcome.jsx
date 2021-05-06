@@ -29,22 +29,28 @@ const Welcome = (props) => {
   };
 
   const googleLogin = async (e) => {
-    window.open("http://localhost:5000/users/google", "_self");
+    window.open(
+      "https://glacial-wildwood-15974.herokuapp.com/users/google",
+      "_self"
+    );
   };
 
   //CHECK CREDENTIALS AND LOG IN OR DISPLAY ERROR
   const loginUser = async (e) => {
     e.preventDefault();
-    const response = await fetch("/users/login", {
-      method: "POST",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/users/login",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await response.json();
     if (response.status === 401) {
@@ -98,7 +104,13 @@ const Welcome = (props) => {
                 >
                   Log In
                 </Button>
-                <Button onClick={googleLogin}> Google Log In</Button>
+                <Button
+                  className="btn-danger  btn-lg d-block mt-2"
+                  onClick={googleLogin}
+                >
+                  {" "}
+                  Google Log In
+                </Button>
               </FormGroup>
               <hr />
               <div className="create">

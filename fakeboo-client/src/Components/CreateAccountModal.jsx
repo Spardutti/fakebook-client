@@ -34,18 +34,21 @@ const CreateAccountModal = (props) => {
   //CHECK FOR ERRORS AND DISPLAY THEM OR CREATE ACCOUNT IF
   //ALL IS VALID
   const createAccount = async () => {
-    const response = await fetch("/users/new", {
-      method: "POST",
-      body: JSON.stringify({
-        username: username,
-        email,
-        password,
-        confirm,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/users/new",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          username: username,
+          email,
+          password,
+          confirm,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await response.json();
     if (data.errors) {
       setErrors(data.errors);

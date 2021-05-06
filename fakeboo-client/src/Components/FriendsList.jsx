@@ -3,13 +3,18 @@ import { Card, Button, CardTitle } from "reactstrap";
 const FriendsList = (props) => {
   //DISPLAY FRIEND LIST WITH DELETE FRIEND BUTTON
   const deleteFriend = async () => {
-    const response = await fetch("/users/" + props.id + "/delete", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        index: props.index,
-      }),
-    });
+    const response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/users/" +
+        props.id +
+        "/delete",
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          index: props.index,
+        }),
+      }
+    );
     if (response.status === 200) {
       window.location.reload();
     }

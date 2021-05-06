@@ -46,13 +46,18 @@ const EditPost = (props) => {
       formData.append("body", description);
     }
 
-    const response = await fetch("/posts/" + props.post._id + "/edit", {
-      method: "PUT",
-      headers: {
-        Authorization: "Bearer " + props.token,
-      },
-      body: formData,
-    });
+    const response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/posts/" +
+        props.post._id +
+        "/edit",
+      {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+        body: formData,
+      }
+    );
 
     if (response.status === 200) {
       window.location.reload();

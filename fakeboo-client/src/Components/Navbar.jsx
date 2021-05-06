@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   NavbarText,
 } from "reactstrap";
+import { useHistory } from "react-router-dom";
 import DropdownRequests from "./DropdownRequest";
 import FriendsList from "./FriendsList";
 import ProfileModal from "./ProfileModal";
@@ -21,6 +22,8 @@ const NavBar = (props) => {
   const [friendRequest, setFriendRequest] = useState();
   const [friendList, setFriendList] = useState();
   const [modal, setModal] = useState(false);
+
+  let history = useHistory();
 
   //CONTROL THE DROPDOW OF THE NAVBAR ON SM DEVICES
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -32,7 +35,9 @@ const NavBar = (props) => {
     //GET FRIEND REQUEST
     const getRequestUsers = async () => {
       const response = await fetch(
-        "/users/" + props.currentUser._id + "/requesting"
+        "https://glacial-wildwood-15974.herokuapp.com/users/" +
+          props.currentUser._id +
+          "/requesting"
       );
       const data = await response.json();
       setFriendRequest(data);
@@ -41,7 +46,9 @@ const NavBar = (props) => {
     //GET FRIEND LIST
     const getFriendList = async () => {
       const response = await fetch(
-        "/users/" + props.currentUser._id + "/friends"
+        "https://glacial-wildwood-15974.herokuapp.com/users/" +
+          props.currentUser._id +
+          "/friends"
       );
       const data = await response.json();
       setFriendList(data);
@@ -59,12 +66,13 @@ const NavBar = (props) => {
 
   //LOGOUT
   const logout = async () => {
-    await fetch("/users/logout", {
+    await fetch("https://glacial-wildwood-15974.herokuapp.com/users/logout", {
       method: "POST",
+      mode: "no-cors",
     });
     localStorage.clear();
     props.setToken();
-    window.location.reload();
+    history.push("/");
   };
 
   return props.currentUser ? (

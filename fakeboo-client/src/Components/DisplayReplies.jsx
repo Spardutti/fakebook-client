@@ -34,18 +34,23 @@ const DisplayReplies = (props) => {
 
   //ADD A REPLY TO A COMMENT
   const addReply = async () => {
-    const resposne = await fetch("/posts/" + props.post._id + "/reply", {
-      method: "PUT",
-      headers: {
-        Authorization: "Bearer " + props.token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        index: props.index,
-        username: props.currentUser.username,
-        reply,
-      }),
-    });
+    const resposne = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/posts/" +
+        props.post._id +
+        "/reply",
+      {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + props.token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          index: props.index,
+          username: props.currentUser.username,
+          reply,
+        }),
+      }
+    );
     const data = await resposne.json();
 
     const arr = [...replies];
@@ -62,17 +67,22 @@ const DisplayReplies = (props) => {
     setReplies(arr);
     props.post.comments[props.index].reply.splice(replyIndex, 1);
 
-    await fetch("/posts/comment/" + props.post._id + "/reply", {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + props.token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        commentIndex: props.index,
-        replyIndex: replyIndex,
-      }),
-    });
+    await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/posts/comment/" +
+        props.post._id +
+        "/reply",
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + props.token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          commentIndex: props.index,
+          replyIndex: replyIndex,
+        }),
+      }
+    );
   };
   return (
     <div>

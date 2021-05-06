@@ -19,18 +19,23 @@ const EditCommentModal = (props) => {
 
   //EDIT THE SELECTED REPLY
   const editReply = async () => {
-    await fetch("/posts/" + props.post._id + "/comment/reply", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + props.token,
-      },
-      body: JSON.stringify({
-        reply,
-        commentIndex: props.commentIndex,
-        replyIndex: props.replyIndex,
-      }),
-    });
+    await fetch(
+      "/posts/" +
+        props.post._id +
+        "https://glacial-wildwood-15974.herokuapp.com/comment/reply",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + props.token,
+        },
+        body: JSON.stringify({
+          reply,
+          commentIndex: props.commentIndex,
+          replyIndex: props.replyIndex,
+        }),
+      }
+    );
     const replyArr = props.post.comments[props.commentIndex].reply;
     replyArr[props.replyIndex].reply = reply;
     props.toggle();

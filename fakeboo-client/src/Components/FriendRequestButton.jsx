@@ -7,12 +7,17 @@ const FriendRequestButton = (props) => {
 
   //SEND FRIEND REQUEST
   const friendRequest = async () => {
-    await fetch("/users/" + props.id + "/request", {
-      method: "PUT",
-      headers: {
-        Authorization: "Bearer " + props.token,
-      },
-    });
+    await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/users/" +
+        props.id +
+        "/request",
+      {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
   };
   //TO UDPATE THE REQUEST BUTTON WITHOUT RELOADING PAGE
   const sendRequest = () => {

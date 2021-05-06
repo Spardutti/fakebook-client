@@ -46,13 +46,16 @@ const CreatePostModal = (props) => {
       formData.append("body", description);
     }
 
-    const response = await fetch("/posts/new", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + props.token,
-      },
-      body: formData,
-    });
+    const response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/posts/new",
+      {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+        body: formData,
+      }
+    );
 
     const data = await response.json();
     if (!data.errors) {

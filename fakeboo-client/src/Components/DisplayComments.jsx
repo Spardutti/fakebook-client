@@ -33,16 +33,20 @@ const DisplayComments = (props) => {
     newComments.splice(index, 1);
     props.setComments(newComments);
 
-    await fetch("/posts/comment/" + props.post._id, {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + props.token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        commentIndex: index,
-      }),
-    });
+    await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/posts/comment/" +
+        props.post._id,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + props.token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          commentIndex: index,
+        }),
+      }
+    );
   };
 
   const commentHandler = (e) => {
@@ -51,16 +55,21 @@ const DisplayComments = (props) => {
 
   //ADDS A COMMENT
   const addComment = async () => {
-    let response = await fetch("/posts/" + props.post._id + "/comment", {
-      method: "PUT",
-      headers: {
-        Authorization: "Bearer " + props.token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        comment,
-      }),
-    });
+    let response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/posts/" +
+        props.post._id +
+        "/comment",
+      {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + props.token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          comment,
+        }),
+      }
+    );
     let data = await response.json();
     props.setComments((old) => [...old, data]);
     props.post.comments.push(data);

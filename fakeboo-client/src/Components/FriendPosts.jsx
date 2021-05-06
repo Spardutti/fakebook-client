@@ -33,12 +33,17 @@ const FriendPosts = (props) => {
 
   //LIKE A POST
   const likePost = async () => {
-    const response = await fetch("/posts/" + props.post._id + "/like", {
-      method: "PUT",
-      headers: {
-        Authorization: "Bearer " + props.token,
-      },
-    });
+    const response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/posts/" +
+        props.post._id +
+        "/like",
+      {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
     if (response.status === 200) {
       setVotes(votes + 1);
     }
@@ -46,12 +51,17 @@ const FriendPosts = (props) => {
 
   //UNLIKE A POST
   const unlikePost = async () => {
-    const response = await fetch("/posts/" + props.post._id + "/unlike", {
-      method: "PUT",
-      headers: {
-        Authorization: "Bearer " + props.token,
-      },
-    });
+    const response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/posts/" +
+        props.post._id +
+        "/unlike",
+      {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
     if (response.status === 200) {
       setVotes(votes - 1);
     }
@@ -59,12 +69,17 @@ const FriendPosts = (props) => {
 
   //DELETE A POST
   const deletePost = async () => {
-    const response = await fetch("/posts/" + props.post._id + "/delete", {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + props.token,
-      },
-    });
+    const response = await fetch(
+      "https://glacial-wildwood-15974.herokuapp.com/posts/" +
+        props.post._id +
+        "/delete",
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
     if (response.status === 200) {
       window.location.reload();
     }

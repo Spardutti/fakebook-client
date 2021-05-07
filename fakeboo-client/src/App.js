@@ -27,6 +27,7 @@ function App() {
             "/current"
         );
         const data = await response.json();
+
         setCurrentUser(data);
         setToken(localToken);
       }

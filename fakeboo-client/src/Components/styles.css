@@ -9,24 +9,13 @@
   height: 90vh;
 }
 
-@media screen and (max-width: 800px) {
-  .nonFriend-pics {
-    height: auto;
-    width: auto;
-    max-width: 250px;
-    margin: auto;
-    margin-top: 10px;
-  }
+.friendPics {
+  height: 250px;
 }
 
-@media screen and (max-width: 500px) {
-  .nonFriend-pics {
-    height: auto;
-    width: auto;
-    max-width: 150px;
-    margin: auto;
-    margin-top: 10px;
-  }
+.nonFriend-pics {
+  height: 80%;
+  margin: auto;
 }
 
 /*********************** NAVBAR */
@@ -86,5 +75,10 @@
 .reply-container {
   width: 95%;
   margin: 0 auto;
+}
+
+.post-image {
+  max-height: 500px;
+  max-width: auto;
 }
 /*# sourceMappingURL=styles.css.map */

@@ -75,10 +75,10 @@ const Home = (props) => {
                         md="3"
                         sm="3"
                         xs="3"
-                        className="mx-auto p-1"
+                        className="mx-auto p-1 friendPics d-flex align-items-center"
                         key={user._id}
                       >
-                        <Card className="rounded-5">
+                        <Card className="rounded-5 nonFriend-pics">
                           <CardImg
                             className="bg-dark nonFriend-pics"
                             src={user.profilePic}

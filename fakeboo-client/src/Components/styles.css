@@ -78,7 +78,7 @@
 }
 
 .post-image {
-  max-height: 500px;
-  max-width: auto;
+  height: auto;
+  max-width: 100%;
 }
 /*# sourceMappingURL=styles.css.map */

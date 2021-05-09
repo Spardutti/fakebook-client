@@ -60,7 +60,8 @@ const CreatePostModal = (props) => {
     const data = await response.json();
     if (!data.errors) {
       props.toggle();
-      window.location.reload();
+      //window.location.reload();
+      console.log(data);
     }
   };
   return (

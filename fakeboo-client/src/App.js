@@ -24,7 +24,12 @@ function App() {
         const response = await fetch(
           "https://glacial-wildwood-15974.herokuapp.com/users/" +
             decodedToken._id +
-            "/current"
+            "/current",
+          {
+            headers: {
+              method: "nocors",
+            },
+          }
         );
         const data = await response.json();
 

@@ -73,8 +73,8 @@ const Home = (props) => {
                     return (
                       <Col
                         md="3"
-                        sm="6"
-                        xs="6"
+                        sm="3"
+                        xs="3"
                         className="mx-auto p-1"
                         key={user._id}
                       >
